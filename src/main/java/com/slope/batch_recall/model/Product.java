@@ -2,6 +2,8 @@ package com.slope.batch_recall.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.batch.item.ResourceAware;
+
 import lombok.Data;
 
 // public record Product(

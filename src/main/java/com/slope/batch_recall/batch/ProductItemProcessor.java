@@ -11,7 +11,7 @@ public class ProductItemProcessor implements ItemProcessor<Product, Product> {
 
   @Override
   public Product process(Product input) throws Exception {
-    log.info("processing {}", input);
+    log.debug("processing row {}", input);
     return input; // return as output
   }
 

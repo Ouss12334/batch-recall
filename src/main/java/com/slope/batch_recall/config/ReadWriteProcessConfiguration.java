@@ -3,13 +3,9 @@ package com.slope.batch_recall.config;
 import static com.slope.batch_recall.config.Constants.FILE_URL;
 import static com.slope.batch_recall.config.Constants.INSERT_PRODUCT_SQL;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.ResolverStyle;
-
 import javax.sql.DataSource;
 
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -23,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.PathResource;
 
 import com.slope.batch_recall.batch.ProductItemProcessor;
@@ -75,6 +70,9 @@ public class ReadWriteProcessConfiguration {
     return mapper;
   }
 
+  /**
+   * single file reader
+   */
   @Bean
   FlatFileItemReader<Product> reader(FieldSetMapper<Product> rowMapper) {
     return new FlatFileItemReaderBuilder<Product>()
@@ -99,11 +97,17 @@ public class ReadWriteProcessConfiguration {
     .build();
   }
 
+  /**
+   * processor
+   */
   @Bean
   ProductItemProcessor processor() {
     return new ProductItemProcessor();
   }
 
+  /**
+   * writer
+   */
   @Bean
   JdbcBatchItemWriter<Product> writer(DataSource dataSource) {
     log.info("writer datasource {}", dataSource);

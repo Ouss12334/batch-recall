@@ -3,10 +3,11 @@
 -- configured insensitive mysql-compose.yml
 USE recall;
 DROP TABLE IF EXISTS product;
-CREATE TABLE product(  
-    event_time TIMESTAMP -- WITHOUT TIME ZONE
+CREATE TABLE product(
+    pdt_uniq_id BINARY(16) PRIMARY KEY DEFAULT (uuid_to_bin(uuid()))
+    ,event_time TIMESTAMP -- WITHOUT TIME ZONE
     ,event_type NVARCHAR(128)
-    ,product_id INT PRIMARY KEY
+    ,product_id LONG
     ,category_id LONG
     ,category_code NVARCHAR(128)
     ,brand NVARCHAR(128)
