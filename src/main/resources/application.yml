@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: batch-recall
+  output:
+      ansi:
+          enabled: always
+  datasource:
+    url: jdbc:mysql://localhost:3306/recall
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  batch:
+    jdbc:
+      initialize-schema: always
+
+server:
+  port: 8088
+
+eureka:
+  client:
+    service-url: 
+      # defaultZone <> default-zone
+      defaultZone: http://localhost:8991/eureka
+    region: "euw-1"
+logging:
+  level:
+    # netflix discovery
+    '[com.netflix.discovery.shared.resolver]': warn
+
