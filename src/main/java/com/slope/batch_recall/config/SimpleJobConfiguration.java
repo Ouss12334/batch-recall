@@ -1,6 +1,6 @@
 package com.slope.batch_recall.config;
 
-import static com.slope.batch_recall.config.Constants.CHUNK_SIZE;
+import static com.slope.batch_recall.batch.Constants.CHUNK_SIZE;
 
 import javax.sql.DataSource;
 
@@ -9,14 +9,11 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.slope.batch_recall.batch.ProductItemProcessor;
@@ -24,14 +21,16 @@ import com.slope.batch_recall.model.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * removed @Configuration to avoid running batch job
+ */
 @Slf4j
-@Configuration
-public class BatchJobConfiguration {
+// @Configuration
+public class SimpleJobConfiguration {
 
   @Bean
   Job importProductJob(JobRepository jobRepository, Step simpleStep, JobExecutionListener listener) {
     return new JobBuilder("product-job", jobRepository)
-    // .incrementer(new RunIdIncrementer())
     .start(simpleStep)
     .listener(listener)
     .build();
@@ -53,20 +52,6 @@ public class BatchJobConfiguration {
     .processor(processor)
     .listener(chunkListener)
     .build();
-  }
-
-  @Bean
-  ChunkListener chunkListener() {
-    return new ChunkListener() {
-      private static int chunkCounter = 0;
-      @Override
-      public void afterChunk(ChunkContext context) {
-        if (chunkCounter % 10000 == 0) {
-          log.info("processed {} rows", chunkCounter);
-        }
-        chunkCounter += CHUNK_SIZE;
-      }
-    };
   }
 
   // multi resource

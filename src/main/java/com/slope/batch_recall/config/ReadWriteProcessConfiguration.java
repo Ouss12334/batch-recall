@@ -1,7 +1,7 @@
 package com.slope.batch_recall.config;
 
-import static com.slope.batch_recall.config.Constants.FILE_URL;
-import static com.slope.batch_recall.config.Constants.INSERT_PRODUCT_SQL;
+import static com.slope.batch_recall.batch.Constants.FILE_URL;
+import static com.slope.batch_recall.batch.Constants.INSERT_PRODUCT_SQL;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -112,6 +112,7 @@ public class ReadWriteProcessConfiguration {
   JdbcBatchItemWriter<Product> writer(DataSource dataSource) {
     log.info("writer datasource {}", dataSource);
     return new JdbcBatchItemWriterBuilder<Product>()
+    .assertUpdates(false)
     .sql(INSERT_PRODUCT_SQL)
     .beanMapped() // for parameters in sql query
     .dataSource(dataSource)

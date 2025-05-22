@@ -1,4 +1,4 @@
-package com.slope.batch_recall.config;
+package com.slope.batch_recall.batch;
 
 public class Constants {
   public static final String SAMPLE_FILE_URL = "C:/Users/Oussama TURKI/Downloads/ecommerce-kaggle/oct-219-sample.csv";

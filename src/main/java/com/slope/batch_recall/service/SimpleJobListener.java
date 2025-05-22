@@ -18,7 +18,7 @@ public class SimpleJobListener implements JobExecutionListener {
 
   @Override
   public void afterJob(JobExecution jobExecution) {
-    log.info("after job begin");
+    log.info("after job end");
     JobExecutionListener.super.afterJob(jobExecution);
   }
 
