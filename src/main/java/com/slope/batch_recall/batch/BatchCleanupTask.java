@@ -4,13 +4,8 @@ import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.batch.core.BatchStatus;
-import org.springframework.batch.core.ExitStatus;
-import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.stereotype.Component;
 
